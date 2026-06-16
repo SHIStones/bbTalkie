@@ -41,6 +41,20 @@ bbTalkie 是一个基于 ESP32-S3 的迷你免提对讲机固件。设备通过 
 - 修改按键行为：改 `bb_button.c`。
 - 修改 LED 颜色：改 `include/led.h` 的颜色宏或 `bb_led.c` 状态机。
 
+## 功能文档
+
+更细的功能说明、函数用法和调用关系已拆分到 `docs/features/`：
+
+- `docs/features/01_walkie_talkie.md`：对讲功能。
+- `docs/features/02_echo_cancellation.md`：回声消除。
+- `docs/features/03_esp_now_radio.md`：ESP-NOW 无线通信。
+- `docs/features/04_audio_codec_playback.md`：音频编解码和播放。
+- `docs/features/05_voice_command.md`：语音命令识别。
+- `docs/features/06_display_animation.md`：OLED 显示和动画。
+- `docs/features/07_button_power.md`：按键、电源与充电。
+- `docs/features/08_led_status.md`：WS2812 状态灯。
+- `docs/features/09_configuration_build.md`：配置与编译。
+
 ## VSCode 编译使用
 
 1. 用 VSCode 打开仓库根目录 `E:\bbTalkie`，或打开 `bbTalkie.code-workspace`。
