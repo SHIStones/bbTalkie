@@ -1,15 +1,20 @@
-#include "led_strip.h"
+/**
+ * @file led.h
+ * @brief WS2812 状态灯颜色配置和控制接口。
+ */
+
+#ifndef BBTALKIE_LED_H
+#define BBTALKIE_LED_H
+
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define WS2812_GPIO_PIN 15
 #define WS2812_LED_COUNT 1
-static led_strip_handle_t led_strip;
 
-// LED state structure
-typedef struct
-{
-    uint8_t r, g, b;
-} led_color_t;
-
-// Color definitions
 #define DARKER_TEAL_R 32
 #define DARKER_TEAL_G 150
 #define DARKER_TEAL_B 32
@@ -22,29 +27,43 @@ typedef struct
 #define SPEAKING_BLUE_G 30
 #define SPEAKING_BLUE_B 0
 
-// Animation parameters
-#define TRANSITION_STEPS 10      // Steps for smooth transition
-#define TRANSITION_DELAY_MS 20   // Delay between transition steps
-#define BREATHING_PERIOD_MS 1000 // Full breathing cycle duration
-#define BREATHING_STEPS 50       // Steps in breathing cycle
+#define TRANSITION_STEPS 10
+#define TRANSITION_DELAY_MS 20
+#define BREATHING_PERIOD_MS 1000
+#define BREATHING_STEPS 50
 
-// Linear interpolation between two values
-static uint8_t lerp_color(uint8_t start, uint8_t end, float t)
+typedef struct
 {
-    return (uint8_t)(start + t * (end - start));
-}
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} led_color_t;
 
-// Calculate breathing effect multiplier (sine wave based)
-static float breathing_multiplier(uint32_t time_ms)
-{
-    float phase = (float)(time_ms % BREATHING_PERIOD_MS) / BREATHING_PERIOD_MS;
-    // Use sine wave for smooth breathing, ranging from 0.3 to 1.0
-    return 0.3f + 0.7f * (1.0f + sinf(2.0f * M_PI * phase)) / 2.0f;
-}
+/**
+ * @brief 初始化 WS2812 灯带驱动。
+ *
+ * @retval None
+ */
+void ws2812_init(void);
 
-// Apply color to LED strip
-static void set_led_color(led_color_t color)
-{
-    ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, 0, color.r, color.g, color.b));
-    ESP_ERROR_CHECK(led_strip_refresh(led_strip));
+/**
+ * @brief 设置 WS2812 的 RGB 颜色。
+ *
+ * @param color 目标颜色。
+ * @retval None
+ */
+void set_led_color(led_color_t color);
+
+/**
+ * @brief 根据说话、接收和空闲状态刷新 WS2812 颜色。
+ *
+ * @param pvParameters FreeRTOS 任务参数，当前未使用。
+ * @retval None
+ */
+void led_control_task(void *pvParameters);
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* BBTALKIE_LED_H */

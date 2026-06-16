@@ -1,0 +1,165 @@
+{
+    "folders": [
+        {
+            "name": "bbTalkie",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "idf.adapterTargetName": "esp32s3",
+        "idf.buildPath": "${workspaceFolder:bbTalkie}\\build-vscode",
+        "idf.openOcdConfigs": [
+            "interface/ftdi/esp_ftdi.cfg",
+            "target/esp32s3.cfg"
+        ],
+        "idf.flashBaudRate": "921600",
+        "idf.monitorBaudRate": "115200",
+        "C_Cpp.default.configurationProvider": "espressif.esp-idf-extension",
+        "files.associations": {
+            "*.h": "c",
+            "*.c": "c"
+        },
+        "files.exclude": {
+            "**/.git": true,
+            "**/managed_components": true,
+            "**/dependencies.lock": true,
+            "**/sdkconfig.old": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "espressif.esp-idf-extension",
+            "ms-vscode.cpptools",
+            "twxs.cmake"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "ESP-IDF: Set target esp32s3",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "set-target",
+                    "esp32s3"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "ESP-IDF: Build bbTalkie",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "build"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "ESP-IDF: Menuconfig",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "menuconfig"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "ESP-IDF: Flash",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "-p",
+                    "${input:serialPort}",
+                    "-b",
+                    "921600",
+                    "flash"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "ESP-IDF: Monitor",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "-p",
+                    "${input:serialPort}",
+                    "monitor"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "ESP-IDF: Flash and Monitor",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "-p",
+                    "${input:serialPort}",
+                    "-b",
+                    "921600",
+                    "flash",
+                    "monitor"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "ESP-IDF: Full clean",
+                "type": "shell",
+                "command": "idf.py",
+                "args": [
+                    "-B",
+                    "build-vscode",
+                    "fullclean"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder:bbTalkie}"
+                },
+                "problemMatcher": []
+            }
+        ],
+        "inputs": [
+            {
+                "id": "serialPort",
+                "type": "promptString",
+                "description": "ESP32-S3 serial port, for example COM3",
+                "default": "COM3"
+            }
+        ]
+    }
+}

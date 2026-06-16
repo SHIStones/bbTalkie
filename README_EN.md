@@ -34,6 +34,10 @@ Test programs used during development
 **tools**
 Helper tools for software development, such as font bitmap generation, graphics conversion, and audio conversion
 
+## VSCode / ESP-IDF Development
+
+Open `bbTalkie.code-workspace` from the repository root in VSCode, or open the repository root directly. The firmware sources remain in `esp-idf/src`; see `esp-idf/src/README_VSCODE.md` for build and flash notes.
+
 ## How to Use & FAQ
 
 * You need an **ESP32-S3 with 16MB Flash and 8MB PSRAM**.

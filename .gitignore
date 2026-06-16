@@ -1,10 +1,42 @@
-esp-idf/src/build/
+# ESP-IDF / CMake build output
+/build/
+/build-*/
+/build_*/
+/build-vscode/
+/cmake-build-*/
+/esp-idf/src/build/
+/esp-idf/src/build-*/
+
+# ESP-IDF generated files
 sdkconfig.old
-target
-.vscode
+sdkconfig.*.old
 managed_components/
-dependencies.lock
-test/*/5.0
-test/*/4.4
-__pycache__
-pytest_log
+
+# Keep the component manager lock file small but reproducible.
+!dependencies.lock
+
+# CMake / Ninja files that may appear outside the default build dir
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+build.ninja
+.ninja_deps
+.ninja_log
+.cache/
+
+# Python / test cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest_log/
+pytest_embedded_log/
+
+# Local editor and analysis state
+.vscode/
+.codegraph/
+
+# Misc generated directories
+target/
+test/*/5.0/
+test/*/4.4/

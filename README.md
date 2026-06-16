@@ -25,6 +25,10 @@ Designed By Corebb With Love From bbRealm!
 **tests** 开发过程中用到的测试程序  
 **tools** 软件部分开发辅助工具，如字体取模、图形转换、音频转换等  
 
+# VSCode / ESP-IDF 开发
+
+推荐使用 VSCode 打开仓库根目录下的 `bbTalkie.code-workspace`，也可以直接打开仓库根目录。实际固件源码在 `esp-idf/src`，详细说明见 `esp-idf/src/README_VSCODE.md`。
+
 # 如何使用 & FAQ：
 * 需要用ESP32-S3 16MB Flash 8MB PSRAM的版本（只有这个才能用上Octal PSRAM，不然PSRAM速度跟不上会导致ESP-SR这套音频框架卡死）  
 * 建议使用外置天线的版本：ESP32-S3-WROOM-1U-N16R8  

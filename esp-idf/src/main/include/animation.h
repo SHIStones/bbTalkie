@@ -1,6 +1,27 @@
+/**
+ * @file animation.h
+ * @brief OLED 主界面动画对象声明。
+ */
+
+#ifndef BBTALKIE_ANIMATION_H
+#define BBTALKIE_ANIMATION_H
+
+#include <stdbool.h>
+#include <stdint.h>
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
-    uint8_t x, y, width, height;
+    uint8_t x;
+    uint8_t y;
+    uint8_t width;
+    uint8_t height;
     uint8_t frame_count;
     const uint8_t *animation_data;
     uint32_t frame_delay_ms;
@@ -10,112 +31,19 @@ typedef struct
     TaskHandle_t task_handle;
 } spi_oled_animation_t;
 
-spi_oled_animation_t anim = {
-    .x = 10,
-    .y = 35,
-    .width = 54,
-    .height = 41,
-    .frame_count = 14,
-    .animation_data = (const uint8_t *)idle_single,
-    .frame_delay_ms = 1000 / 5,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
+extern spi_oled_animation_t anim;
+extern spi_oled_animation_t anim_speaking;
+extern spi_oled_animation_t anim_receiving;
+extern spi_oled_animation_t anim_idleBar;
+extern spi_oled_animation_t anim_waveBar;
+extern spi_oled_animation_t anim_idleWaveBar;
+extern spi_oled_animation_t anim_podcast;
+extern spi_oled_animation_t anim_speaker;
+extern spi_oled_animation_t anim_byebye;
+extern spi_oled_animation_t *anim_currentCommand;
 
-spi_oled_animation_t anim_speaking = {
-    .x = 10,
-    .y = 35,
-    .width = 54,
-    .height = 41,
-    .frame_count = 7,
-    .animation_data = (const uint8_t *)speaking_single,
-    .frame_delay_ms = 1000 / 15,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
+#ifdef __cplusplus
+}
+#endif
 
-spi_oled_animation_t anim_receiving = {
-    .x = 10,
-    .y = 35,
-    .width = 54,
-    .height = 41,
-    .frame_count = 6,
-    .animation_data = (const uint8_t *)receiving_single,
-    .frame_delay_ms = 1000 / 15,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-spi_oled_animation_t anim_idleBar = {
-    .x = 10,
-    .y = 95,
-    .width = 101,
-    .height = 12,
-    .frame_count = 14,
-    .animation_data = (const uint8_t *)idle_bar,
-    .frame_delay_ms = 1000 / 15,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-spi_oled_animation_t anim_waveBar = {
-    .x = 1,
-    .y = 85,
-    .width = 126,
-    .height = 40,
-    .frame_count = 29,
-    .animation_data = (const uint8_t *)wave_bar,
-    .frame_delay_ms = 1000 / 30,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-spi_oled_animation_t anim_idleWaveBar = {
-    .x = 1,
-    .y = 85,
-    .width = 126,
-    .height = 40,
-    .frame_count = 36,
-    .animation_data = (const uint8_t *)idle_wave_bar,
-    .frame_delay_ms = 1000 / 15,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-spi_oled_animation_t anim_podcast = {
-    .x = 74,
-    .y = 38,
-    .width = 36,
-    .height = 36,
-    .frame_count = 24,
-    .animation_data = (const uint8_t *)podcast,
-    .frame_delay_ms = 1000 / 30,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-spi_oled_animation_t anim_speaker = {
-    .x = 74,
-    .y = 38,
-    .width = 36,
-    .height = 36,
-    .frame_count = 46,
-    .animation_data = (const uint8_t *)speaker,
-    .frame_delay_ms = 1000 / 30,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-spi_oled_animation_t anim_byebye = {
-    .x = 0,
-    .y = 0,
-    .width = 128,
-    .height = 128,
-    .frame_count = 7,
-    .animation_data = (const uint8_t *)byebye_image,
-    .frame_delay_ms = 1000 / 15,
-    .stop_frame = -1,
-    .reverse = false,
-    .task_handle = NULL};
-
-// custom map
+#endif /* BBTALKIE_ANIMATION_H */
