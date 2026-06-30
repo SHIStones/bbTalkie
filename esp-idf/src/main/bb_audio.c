@@ -350,10 +350,31 @@ void detect_Task(void *arg)
     int afe_chunksize = afe_handle->get_fetch_chunksize(afe_data);
     char *mn_name = esp_srmodel_filter(models, ESP_MN_PREFIX, ESP_MN_CHINESE);
 
+    if (mn_name == NULL)
+    {
+        ESP_LOGE(TAG, "Chinese MultiNet model not found. Enable CONFIG_SR_MN_CN_MULTINET7_QUANT and flash the model partition.");
+        vTaskDelete(NULL);
+        return;
+    }
+
     printf("multinet:%s\n", mn_name);
 
     esp_mn_iface_t *multinet = esp_mn_handle_from_name(mn_name);
+    if (multinet == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to get MultiNet handle for model: %s", mn_name);
+        vTaskDelete(NULL);
+        return;
+    }
+
     model_iface_data_t *model_data = multinet->create(mn_name, 1488);
+    if (model_data == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to create MultiNet model data for model: %s", mn_name);
+        vTaskDelete(NULL);
+        return;
+    }
+
     int mu_chunksize = multinet->get_samp_chunksize(model_data);
 
     printf("mu chunksize:%d, afe chunksize:%d\n", mu_chunksize, afe_chunksize);
